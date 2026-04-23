@@ -26,16 +26,17 @@ pipeline {
         stage('Test') {
             steps {
                 echo "Running unit tests..."
-                // Note: The syllabus uses 'sh' for Linux/Mac. If you are on Windows, use 'bat' instead.
-                sh 'echo "Tests passed successfully!"' 
+                // Using 'bat' instead of 'sh' for Windows compatibility
+                bat 'echo "Tests passed successfully!"' 
             }
         }
 
         // Task 11.4: Archive artifacts
         stage('Package') {
             steps {
-                sh 'mkdir -p output'
-                sh 'echo "Build successful" > output/app.txt'
+                // Using Windows directory commands
+                bat 'if not exist output mkdir output'
+                bat 'echo "Build successful" > output/app.txt'
                 archiveArtifacts artifacts: 'output/*'
             }
         }
